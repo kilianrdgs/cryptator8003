@@ -5,34 +5,31 @@ import java.util.Scanner;
 
 import org.example.details.consoleClearing;
 
-public class encryptionMenu {
+public class hashingMenu {
     private static Scanner _scan = new Scanner(System.in);
 
     private static Boolean _isChoiceCorrect = true;
 
-    public static void showEncryptionMenu() {
+    public static void showHashingMenu() {
 
         // Clears the console
         consoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array
-        menus.add("                    ____ _     _  __  __               ");
-        menus.add("                  / ___| |__ (_)/ _|/ _|_ __ ___ _ __ ");
-        menus.add("                 | |   | '_ \\| | |_| |_| '__/ _ \\ '__|");
-        menus.add("                 | |___| | | | |  _|  _| | |  __/ |   ");
-        menus.add("                  \\____|_| |_|_|_| |_| |_|  \\___|_|   ");
+        menus.add("                    _   _           _     _             ");
+        menus.add("                   | | | | __ _ ___| |__ (_)_ __   __ _ ");
+        menus.add("                   | |_| |/ _` / __| '_ \\| | '_ \\ / _` |");
+        menus.add("                   |  _  | (_| \\__ \\ | | | | | | | (_| |");
+        menus.add("                   |_| |_|\\__,_|___/_| |_|_|_| |_|\\__, |");
+        menus.add("                                                  |___/ ");        
         menus.add("----------------------------------------------------------------------------");
         if (!_isChoiceCorrect) {
             menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
             menus.add("----------------------------------------------------------------------------");
         }
-        menus.add("                     [1] Méthode -CÉSAR-");
-        menus.add("                     [2] Méthode -VIGENÈRE-");
-        menus.add("                     [3] Méthode -CARRÉ DE POLYBE-");
-        menus.add("                     [4] Méthode -L.F.S.R.-");
-        menus.add("                     [5] Méthode -MACHINE ENIGMA-");
-        menus.add("                     [6] Méthode -RC4-");
+        menus.add("                          [1] Méthode -MD5-");
+        menus.add("                          [2] Méthode -SHA-256-");
         menus.add("");
         menus.add("                     [ENTER] Revenir au menu principal");
         menus.add("----------------------------------------------------------------------------");
@@ -43,11 +40,11 @@ public class encryptionMenu {
         }
     }
 
-    public static void getEncryptionMenu() {
+    public static void getHashingMenu() {
         while (true) {
 
-            // Call encryption menu
-            showEncryptionMenu();
+            // Call hashing menu
+            showHashingMenu();
             System.out.print("[USER INPUT] >>> ");
             String answer = _scan.nextLine();
 
@@ -55,27 +52,11 @@ public class encryptionMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de César");
+                    System.out.println("Utiliser la méthode MD5");
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Vigenère");
-                    break;
-                case "3":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Carré de Polybe");
-                    break;
-                case "4":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de L.F.S.R.");
-                    break;
-                case "5":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de la Machine Enigma");
-                    break;
-                case "6":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de RC4");
+                    System.out.println("Utiliser la méthode SHA-256");
                     break;
                 case "":
                     _isChoiceCorrect = true;

@@ -7,6 +7,8 @@ import org.example.details.consoleClearing;
 
 public class decryptionMenu {
     private static Scanner _scan = new Scanner(System.in);
+
+    private static Boolean _isChoiceCorrect = true;
     
     public static void showDecryptionMenu() {
         // Clears the console
@@ -19,6 +21,10 @@ public class decryptionMenu {
         menus.add("              | |_| |  __/ (__| | | | |  _|  _| | |  __/ |   ");
         menus.add("              |____/ \\___|\\___|_| |_|_|_| |_| |_|  \\___|_|   ");
         menus.add("----------------------------------------------------------------------------");
+        if (!_isChoiceCorrect) {
+            menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
+            menus.add("----------------------------------------------------------------------------");
+        }
         menus.add("                     [1] Méthode -CÉSAR-");
         menus.add("                     [2] Méthode -VIGENÈRE-");
         menus.add("                     [3] Méthode -CARRÉ DE POLYBE-");
@@ -40,27 +46,35 @@ public class decryptionMenu {
             String answer = _scan.nextLine();
             switch (answer) {
                 case "1":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de César");
                     break;
                 case "2":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de Vigenère");
                     break;
                 case "3":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de Carré de Polybe");
                     break;
                 case "4":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de L.F.S.R.");
                     break;
                 case "5":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de la Machine Enigma");
                     break;
                 case "6":
+                    _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de RC4");
                     break;
                 case "":
+                    _isChoiceCorrect = true;
                     System.out.println("Revenir au menu principal");
                     return;
                 default:
+                    _isChoiceCorrect = false;
                     System.out.println("Veuillez choisir une option valide.\n");
                     break;
             }

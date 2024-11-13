@@ -7,6 +7,7 @@ import org.example.details.consoleClearing;
 
 public class homeMenu {
     private static Scanner _scan = new Scanner(System.in);
+    private static Boolean _isChoiceCorrect = true;
 
     public static void showHomeMenu() {
         // Clears the console
@@ -20,10 +21,15 @@ public class homeMenu {
         menus.add("  \\____|_|   \\__, | .__/ \\__\\__,_|\\__\\___/|_|     \\___/ \\___/ \\___/____/ ");
         menus.add("             |___/|_|                                                    ");
         menus.add("----------------------------------------------------------------------------");
+        if (!_isChoiceCorrect) {
+            menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
+            menus.add("----------------------------------------------------------------------------");
+        }
         menus.add("                        [1] Chiffrer un message");
         menus.add("                        [2] Déchiffrer un message");
         menus.add("                        [3] Hacher un message");
         menus.add("                        [4] Chiffrer, puis hacher un message");
+        menus.add("                        [5] Succéder plusieurs chiffrements");
         menus.add("");
         menus.add("                        [ENTER] Quitter");
         menus.add("----------------------------------------------------------------------------");
@@ -39,19 +45,34 @@ public class homeMenu {
             String answer = _scan.nextLine();
             switch (answer) {
                 case "1":
+                    _isChoiceCorrect = true;
                     encryptionMenu.getEncryptionMenu();
                     break;
                 case "2":
+                    _isChoiceCorrect = true;
                     decryptionMenu.getDecryptionMenu();
                     break;
                 case "3":
-                    System.out.println("Hacher un message");
+                    _isChoiceCorrect = true;
+                    hashingMenu.getHashingMenu();
                     break;
                 case "":
-                    System.out.println("Quitter le programme");
+                    _isChoiceCorrect = true;
+                    ArrayList<String> menus = new ArrayList<>();
+                    consoleClearing.clearConsole();
+                    menus.add("                 _                               _        _ ");
+                    menus.add("                / \\  _   _   _ __ _____   _____ (_)_ __  | |");
+                    menus.add("               / _ \\| | | | | '__/ _ \\ \\ / / _ \\| | '__| | |");
+                    menus.add("              / ___ \\ |_| | | | |  __/\\ V / (_) | | |    |_|");
+                    menus.add("             /_/   \\_\\__,_| |_|  \\___| \\_/ \\___/|_|_|    (_)");
+                    menus.add("----------------------------------------------------------------------------");
+                    for (String menu : menus) {
+                        System.out.println(menu);
+                    }
                     return;
                 default:
                     System.out.println("Veuillez choisir une option valide.\n");
+                    _isChoiceCorrect = false;
                     break;
             }
         } 
