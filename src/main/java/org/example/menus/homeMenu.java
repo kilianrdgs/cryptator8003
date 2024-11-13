@@ -1,5 +1,6 @@
 package org.example.menus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,10 +39,10 @@ public class homeMenu {
         }
     }
 
-    public static void getHomeMenu() {
+    public static void getHomeMenu() throws IOException {
         while (true) {
             showHomeMenu();
-            System.out.print("[USER INPUT] >>> ");
+            System.out.print("[OPTION CHOISIE] >>> ");
             String answer = _scan.nextLine();
             switch (answer) {
                 case "1":

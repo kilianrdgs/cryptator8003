@@ -42,7 +42,7 @@ public class decryptionMenu {
     public static void getDecryptionMenu() {
         while (true) {
             showDecryptionMenu();
-            System.out.print("[USER INPUT] >>> ");
+            System.out.print("[OPTION CHOISIE] >>> ");
             String answer = _scan.nextLine();
             switch (answer) {
                 case "1":

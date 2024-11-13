@@ -1,56 +1,45 @@
-package org.example.menus;
+package org.example.menus.encryption_menus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.details.consoleClearing;
-import org.example.encrypting_methods.ceasarMethod;
-import org.example.menus.encryption_menus.ceasarMenus;
 
-public class encryptionMenu {
+public class ceasarMenus {
+
     private static Scanner _scan = new Scanner(System.in);
 
     private static Boolean _isChoiceCorrect = true;
-
-    public static void showEncryptionMenu() {
-
-        // Clears the console
+    
+    public static void showCeasarEncryptionMenu() throws IOException {
         consoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array
-        menus.add("                   ____ _     _  __  __               ");
-        menus.add("                  / ___| |__ (_)/ _|/ _|_ __ ___ _ __ ");
-        menus.add("                 | |   | '_ \\| | |_| |_| '__/ _ \\ '__|");
-        menus.add("                 | |___| | | | |  _|  _| | |  __/ |   ");
-        menus.add("                  \\____|_| |_|_|_| |_| |_|  \\___|_|   ");
+        menus.add("           ____                                               ");
+        menus.add("          / ___|___  __ _ ___  __ _ _ __                       ");
+        menus.add("         | |   / _ \\/ _` / __|/ _` | '__|                      ");
+        menus.add("         | |__|  __/ (_| \\__ \\ (_| | |                         ");
+        menus.add("          \\____\\___|\\__,_|___/\\__,_|_|      _   _              ");
+        menus.add("         | ____|_ __   ___ _ __ _   _ _ __ | |_(_) ___  _ __   ");
+        menus.add("         |  _| | '_ \\ / __| '__| | | | '_ \\| __| |/ _ \\| '_ \\ ");
+        menus.add("         | |___| | | | (__| |  | |_| | |_) | |_| | (_) | | | |");
+        menus.add("         |_____|_| |_|\\___|_|   \\__, | .__/ \\__|_|\\___/|_| |_|");
+        menus.add("                                |___/|_|                       ");
         menus.add("----------------------------------------------------------------------------");
-        if (!_isChoiceCorrect) {
-            menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
-            menus.add("----------------------------------------------------------------------------");
-        }
-        menus.add("                     [1] Méthode -CÉSAR-");
-        menus.add("                     [2] Méthode -VIGENÈRE-");
-        menus.add("                     [3] Méthode -CARRÉ DE POLYBE-");
-        menus.add("                     [4] Méthode -L.F.S.R.-");
-        menus.add("                     [5] Méthode -MACHINE ENIGMA-");
-        menus.add("                     [6] Méthode -RC4-");
-        menus.add("");
-        menus.add("                     [ENTER] Revenir au menu principal");
-        menus.add("----------------------------------------------------------------------------");
-
+    
         // Display the menu
         for (String menu : menus) {
             System.out.println(menu);
         }
     }
 
-    public static void getEncryptionMenu() throws IOException {
+    public static void getCeasarEncryptionMenu() throws IOException {
         while (true) {
 
             // Call encryption menu
-            showEncryptionMenu();
+            showCeasarEncryptionMenu();
             System.out.print("[OPTION CHOISIE] >>> ");
             String answer = _scan.nextLine();
 
@@ -59,7 +48,6 @@ public class encryptionMenu {
                 case "1":
                     _isChoiceCorrect = true;
                     System.out.println("Utiliser la méthode de César");
-                    ceasarMenus.getCeasarEncryptionMenu();
                     break;
                 case "2":
                     _isChoiceCorrect = true;

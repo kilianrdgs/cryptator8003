@@ -45,7 +45,7 @@ public class hashingMenu {
 
             // Call hashing menu
             showHashingMenu();
-            System.out.print("[USER INPUT] >>> ");
+            System.out.print("[OPTION CHOISIE] >>> ");
             String answer = _scan.nextLine();
 
             // Set up the multiple answers the user can input
