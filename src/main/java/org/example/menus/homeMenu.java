@@ -31,6 +31,7 @@ public class homeMenu {
         menus.add("                        [3] Hacher un message");
         menus.add("                        [4] Chiffrer, puis hacher un message");
         menus.add("                        [5] Succéder plusieurs chiffrements");
+        menus.add("                        [6] Besoin d'aide ?");
         menus.add("");
         menus.add("                        [ENTER] Quitter");
         menus.add("----------------------------------------------------------------------------");
@@ -56,6 +57,18 @@ public class homeMenu {
                 case "3":
                     _isChoiceCorrect = true;
                     hashingMenu.getHashingMenu();
+                    break;
+                case "4":
+                    _isChoiceCorrect = true;
+                    encryptionMenu.getEncryptionMenu();
+                    break;
+                case "5":
+                    _isChoiceCorrect = true;
+                    System.out.println("Succéder plusieurs chiffrements");
+                    break;
+                case "6":
+                    _isChoiceCorrect = true;
+                    System.out.println("Besoin d'aide ?");
                     break;
                 case "":
                     _isChoiceCorrect = true;

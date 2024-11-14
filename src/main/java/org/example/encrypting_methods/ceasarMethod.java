@@ -8,19 +8,18 @@ public class ceasarMethod {
 
     public static void ceasarEncryption(String message, int key) throws IOException {
 
-        String messageChiffre = "";
+        String encryptedMessage = "";
 
         int i;
 
         for (i = 0; i < message.length(); i++) {
-            char lettreMessage = message.charAt(i);
-            char lettreChiffree = (char)(((lettreMessage - 96) + key) % 26 + 96);
-            messageChiffre += lettreChiffree;
+            char messageLetter = message.charAt(i);
+            char encryptedLetter = (char)(((messageLetter - 96) + key) % 26 + 96); // Calculates the new letter by adding the key to the ASCII value of the letter
+            encryptedMessage += encryptedLetter; // Adds the newfound letter to the encrypted message
         }
         
-        String userHome = System.getProperty("user.home");
-        String filePath = userHome + "\\Documents\\encryption.txt";
-        savingMethod.saveEncryption(filePath, messageChiffre);
+        String filePath = System.getProperty("user.home") + "/Desktop/encrypted_files/ceasar_encrypted.csv"; // Sets the file path
+        savingMethod.saveEncryption(filePath, encryptedMessage); // Saves the encrypted message
 
     }
 }
