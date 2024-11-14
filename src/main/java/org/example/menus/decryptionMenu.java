@@ -1,9 +1,11 @@
 package org.example.menus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.details.consoleClearing;
+import org.example.menus.decryption_menus.ceasarMenus;
 
 public class decryptionMenu {
     private static Scanner _scan = new Scanner(System.in);
@@ -39,7 +41,7 @@ public class decryptionMenu {
         }
     }
 
-    public static void getDecryptionMenu() {
+    public static void getDecryptionMenu() throws IOException {
         while (true) {
             showDecryptionMenu();
             System.out.print("[OPTION CHOISIE] >>> ");
@@ -47,7 +49,7 @@ public class decryptionMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de César");
+                    ceasarMenus.getCeasarDecryptionMenu();
                     break;
                 case "2":
                     _isChoiceCorrect = true;
