@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Represents an ASCII art banner with multiple lines
  */
-class Banner {
+public class Banner {
     private List<String> lines;
 
     public Banner(List<String> lines) {
