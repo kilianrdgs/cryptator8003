@@ -18,6 +18,7 @@ public class EncryptionMenus {
                 .addOption("1", "Méthode -CÉSAR-", () -> null)
                 .addOption("2", "Méthode -VIGENÈRE-", () -> null)
                 .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(true))
+                .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(true))
                 .addOption("", "Retour", MainMenu::getMainMenu);
     }
 }

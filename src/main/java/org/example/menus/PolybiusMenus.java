@@ -4,6 +4,7 @@ import org.example.encrypting_methods.Polybius;
 import org.example.classes.PolybiusSquare;
 import org.example.utils.menu.Menu;
 import org.example.utils.menu.Banner;
+import org.example.utils.menu.MenuUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class PolybiusMenus {
     private static Scanner scanner = new Scanner(System.in);
-    private static boolean isEncrypting; // Track whether we're encrypting or decrypting
+    private static boolean isEncrypting;
 
     public static Menu getPolybiusMenu(boolean forEncryption) {
         isEncrypting = forEncryption;
@@ -147,8 +148,7 @@ public class PolybiusMenus {
     }
 
     private static Menu handleSaveSquare(PolybiusSquare square) {
-        System.out.print("\nNom du fichier pour sauvegarder : ");
-        String filename = scanner.nextLine();
+        String filename = MenuUtil.getInputFromUser("Nom du fichier pour sauvegarder : ");
         try {
             square.saveToFile(filename);
             System.out.println("Carré sauvegardé avec succès !");
@@ -164,10 +164,8 @@ public class PolybiusMenus {
                 handleDecryption(square);
     }
 
-
     private static Menu handleImportSquare() {
-        System.out.print("\nChemin du fichier à importer : ");
-        String filename = scanner.nextLine();
+        String filename = MenuUtil.getInputFromUser("Chemin du fichier à importer : ");
 
         try {
             PolybiusSquare square = PolybiusSquare.loadFromFile(filename);
@@ -220,22 +218,9 @@ public class PolybiusMenus {
     }
 
     private static Menu handleMessageInput(PolybiusSquare square, boolean columnFirst, boolean isEncrypting, boolean manual) {
-        String message;
-        if (manual) {
-            System.out.print("\n" + (isEncrypting ? "Message à chiffrer : " : "Message chiffré : "));
-            message = scanner.nextLine();
-        } else {
-            System.out.print("\nChemin du fichier : ");
-            String filename = scanner.nextLine();
-            try {
-                message = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(filename)));
-            } catch (IOException e) {
-                System.out.println("Erreur lors de la lecture : " + e.getMessage());
-                System.out.println("\nAppuyez sur Entrée pour continuer...");
-                scanner.nextLine();
-                return getMessageSourceMenu(square, columnFirst, isEncrypting);
-            }
-        }
+        String prompt = isEncrypting ? "Message à chiffrer : " : "Message chiffré : ";
+        String message = MenuUtil.getMessageFromInput(manual, v -> getMessageSourceMenu(square, columnFirst, isEncrypting));
+        if (message == null) return getMessageSourceMenu(square, columnFirst, isEncrypting);
 
         String result = isEncrypting ?
                 Polybius.encrypt(message, square, columnFirst) :
@@ -244,38 +229,7 @@ public class PolybiusMenus {
         System.out.println("\nMessage " + (isEncrypting ? "chiffré" : "déchiffré") + " : " + result);
 
         return isEncrypting ?
-                getSaveResultMenu(result) : MainMenu.getMainMenu();
-
-    }
-
-    private static Menu getSaveResultMenu(String encryptedMessage) {
-        Banner banner = Banner.create(
-                "                 Sauvegarde du Message",
-                "                 --------------------"
-        );
-
-        return new Menu()
-                .setBanner(banner)
-                .addOption("1", "Sauvegarder le message", () -> handleSaveMessage(encryptedMessage))
-                .addOption("2", "Terminer sans sauvegarder", MainMenu::getMainMenu)
-                .addOption("", "Retour", () -> getPolybiusMenu(true));
-    }
-
-    private static Menu handleSaveMessage(String message) {
-        System.out.print("\nNom du fichier : ");
-        String filename = scanner.nextLine();
-
-        boolean error = false;
-        try (PrintWriter out = new PrintWriter(filename)) {
-            out.println(message);
-            System.out.println("Message sauvegardé avec succès !");
-        } catch (IOException e) {
-            System.out.println("Erreur lors de la sauvegarde : " + e.getMessage());
-            error = true;
-        }
-
-        System.out.println("\nAppuyez sur Entrée pour continuer...");
-        scanner.nextLine();
-        return error ? getSaveResultMenu(message) : MainMenu.getMainMenu();
+                MenuUtil.createSaveResultMenu(result, r -> getPolybiusMenu(true)) :
+                MainMenu.getMainMenu();
     }
 }
