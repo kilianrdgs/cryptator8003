@@ -1,4 +1,6 @@
-package org.example;
+package org.example.encrypting_methods;
+
+import org.example.classes.PolybiusSquare;
 
 public class Polybius {
 

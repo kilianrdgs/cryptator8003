@@ -1,7 +1,7 @@
 package org.example.menus;
 
-import org.example.Polybius;
-import org.example.PolybiusSquare;
+import org.example.encrypting_methods.Polybius;
+import org.example.classes.PolybiusSquare;
 import org.example.utils.menu.Menu;
 import org.example.utils.menu.Banner;
 
