@@ -40,44 +40,13 @@ public class ceasarMenus {
 
             // Call encryption menu
             showCeasarEncryptionMenu();
-            System.out.print("[OPTION CHOISIE] >>> ");
-            String answer = _scan.nextLine();
+            System.out.print("[TAPEZ UN MESSAGE A CHIFFRER] >>> ");
+            String message = _scan.nextLine();
+            System.out.print("[ENTREZ LE CHIFFRER DE ROTATION] >>> ");
+            int key = _scan.nextInt();
 
-            // Set up the multiple answers the user can input
-            switch (answer) {
-                case "1":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de César");
-                    break;
-                case "2":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Vigenère");
-                    break;
-                case "3":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Carré de Polybe");
-                    break;
-                case "4":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de L.F.S.R.");
-                    break;
-                case "5":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de la Machine Enigma");
-                    break;
-                case "6":
-                    _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de RC4");
-                    break;
-                case "":
-                    _isChoiceCorrect = true;
-                    System.out.println("Revenir au menu principal");
-                    return;
-                default:
-                    _isChoiceCorrect = false;
-                    System.out.println("Veuillez choisir une option valide.\n");
-                    break;
-            }
+            // Call encryption method
+            org.example.encrypting_methods.ceasarMethod.ceasarEncryption(message, key);
         }
     }
 }
