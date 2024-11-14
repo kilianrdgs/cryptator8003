@@ -1,34 +1,45 @@
 package org.example.encrypting_methods;
 
+import java.io.IOException;
+
+import org.example.saving.savingMethod;
+
 public class VigenereMethod {
 
-    public static void vigenereEncryption(String message, String key) {
+    public static void vigenereEncryption(String message, String key) throws IOException {
 
         StringBuilder encryptedMessage = new StringBuilder();
-
-        int i;
-
-        for (i = 0; i < message.length(); i++) {
-            char messageChar = message.charAt(i); // Stores the ASCII value of the letter in the word to be encrypted
-            char keyChar = key.charAt(i % key.length()); // Stores the ASCII value of the letter in the encryption key
-            char encryptedChar = (char)(((messageChar - 96) + (keyChar - 96)) % 26 + 96); // Adds the ASCII values of the letters in the message and the key
+    
+        for (int i = 0; i < message.length(); i++) {
+            char messageChar = message.charAt(i); // Current character in the message
+            char keyChar = key.charAt(i % key.length()); // Corresponding character in the key
+    
+            char encryptedChar = (char)((((messageChar - 'a') + (keyChar - 'a') + 1) % 26) + 'a');
+    
             encryptedMessage.append(encryptedChar);
         }
-        System.out.println("Encrypted message: " + encryptedMessage);
-
+    
+        String filePath = System.getProperty("user.home") + "/Desktop/encrypted_files/vigenere_encrypted.csv"; // Sets the file path
+        savingMethod.saveVigenereEncryption(filePath, encryptedMessage);
     }
+    
 
-    public static void vigenereDecryption(String message, String key) {
+    public static void vigenereDecryption(String message, String key) throws IOException {
 
-        StringBuilder encryptedMessage = new StringBuilder();
-        int i;
-
-        for (i = 0; i < message.length(); i++) {
-            char messageChar = message.charAt(i); // Stores the ASCII value of the letter in the word to be decrypted
-            char keyChar = key.charAt(i % key.length()); // Stores the ASCII value of the letter in the encryption key
-            char encryptedChar = (char)((((messageChar - 96) - (keyChar - 96) + 26) % 26) + 96); // Subtracts the ASCII values of the letters in the message and the key
-            encryptedMessage.append(encryptedChar);
+        StringBuilder decryptedMessage = new StringBuilder();
+    
+        for (int i = 0; i < message.length(); i++) {
+            char messageChar = message.charAt(i);
+            char keyChar = key.charAt(i % key.length());
+    
+            char decryptedChar = (char)((((messageChar - 'a') - (keyChar - 'a') + 25) % 26) + 'a');
+    
+            decryptedMessage.append(decryptedChar);
         }
-        System.out.println(encryptedMessage);
+    
+        String filePath = System.getProperty("user.home") + "/Desktop/decrypted_files/vigenere_decrypted.csv"; // Sets the file path
+        savingMethod.saveVigenereEncryption(filePath, decryptedMessage);
     }
+
+    
 }

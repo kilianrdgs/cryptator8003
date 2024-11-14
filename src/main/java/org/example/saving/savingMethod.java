@@ -22,4 +22,20 @@ public class savingMethod {
             pw.close();
         }
     }
+
+    public static void saveVigenereEncryption(String filePath, StringBuilder data) throws IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filePath, true)));
+        try {
+            pw.println(data);
+        } finally {
+            pw.close();
+        }
+    }
 }

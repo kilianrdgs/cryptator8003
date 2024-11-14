@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import org.example.details.ConsoleClearing;
 import org.example.menus.decryption_menus.CeasarMenus;
+import org.example.menus.decryption_menus.VigenereMenus;
 
 public class DecryptionMenu {
     private static Scanner _scan = new Scanner(System.in);
@@ -53,7 +54,7 @@ public class DecryptionMenu {
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Vigenère");
+                    VigenereMenus.getVigenereDecryptionMenu();
                     break;
                 case "3":
                     _isChoiceCorrect = true;

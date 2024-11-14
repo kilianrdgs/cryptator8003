@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.details.ConsoleClearing;
+import org.example.details.TextColors;
 
 public class HelpMenu {
 
@@ -18,15 +19,15 @@ public class HelpMenu {
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array
-        menus.add("                         _   _      _       _ _ ");
+        menus.add(TextColors.BLUE + "                         _   _      _       _ _ ");
         menus.add("                        | | | | ___| |_ __ | | |");
         menus.add("                        | |_| |/ _ \\ | '_ \\| | |");
         menus.add("                        |  _  |  __/ | |_) |_|_|");
         menus.add("                        |_| |_|\\___|_| .__/(_|_)");
-        menus.add("                                     |_|         ");        
+        menus.add("                                     |_|         " + TextColors.RESET);        
         menus.add("----------------------------------------------------------------------------");
         if (!_isChoiceCorrect) {
-            menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
+            menus.add(TextColors.RED + "                    VEUILLEZ CHOISIR UNE OPTION VALIDE" + TextColors.RESET);
             menus.add("----------------------------------------------------------------------------");
         }
         menus.add("                 [1] C'est quoi, le Chiffrement CÉSAR ?");
@@ -36,7 +37,7 @@ public class HelpMenu {
         menus.add("                 [5] C'est quoi, le Chiffrement MACHINE ENIGMA ?");
         menus.add("                 [6] C'est quoi, le Chiffrement RC4 ?");
         menus.add("");
-        menus.add("                 [ENTER] Revenir au menu principal");
+        menus.add(TextColors.YELLOW + "                 [ENTER] Revenir au menu principal" + TextColors.RESET);
         menus.add("----------------------------------------------------------------------------");
 
         // Display the menu
@@ -57,23 +58,23 @@ public class HelpMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    //helpMenus.getCeasarHelpMenu();
+                    CeasarHelpMenu.getCeasarHelpMenu();
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    //helpMenus.getVigenereHelpMenu();
+                    VigenereHelpMenu.getVigenereHelpMenu();
                     break;
                 case "3":
                     _isChoiceCorrect = true;
-                    //helpMenus.getPolybiusHelpMenu();
+                    PolybiusHelpMenu.getPolybiusHelpMenu();
                     break;
                 case "4":
                     _isChoiceCorrect = true;
-                    //helpMenus.getLFSRHelpMenu();
+                    LFSRHelpMenu.getLFSRHelpMenu();
                     break;
                 case "5":
                     _isChoiceCorrect = true;
-                    //helpMenus.getEnigmaHelpMenu();
+                    EnigmaHelpMenu.getEnigmaHelpMenu();
                     break;
                 case "6":
                     _isChoiceCorrect = true;

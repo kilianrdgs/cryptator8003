@@ -1,9 +1,12 @@
 package org.example.menus;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.details.ConsoleClearing;
+import org.example.menus.encryption_menus.HashingMenus;
 
 public class HashingMenu {
     private static Scanner _scan = new Scanner(System.in);
@@ -40,7 +43,7 @@ public class HashingMenu {
         }
     }
 
-    public static void getHashingMenu() {
+    public static void getHashingMenu() throws IOException, NoSuchAlgorithmException {
         while (true) {
 
             // Call hashing menu
@@ -52,11 +55,11 @@ public class HashingMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode MD5");
+                    HashingMenus.getHashingMenu("MD5");
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode SHA-256");
+                    HashingMenus.getHashingMenu("SHA-256");
                     break;
                 case "":
                     _isChoiceCorrect = true;
