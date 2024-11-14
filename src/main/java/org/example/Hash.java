@@ -18,7 +18,7 @@ public class Hash {
         byte[] digest = md.digest();
 
         // Create a StringBuffer to convert the byte array to a hex string
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte b : digest) {
             sb.append(String.format("%02x", b & 0xff)); //format converting
         }
