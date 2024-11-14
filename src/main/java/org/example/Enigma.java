@@ -2,68 +2,107 @@ package org.example;
 
 public class Enigma {
 
-    public static void crypt(String input, String key) {
+    public static void crypt(String input, String key) { // fonction qui est appellée pour commencer a crypter
         StringBuilder resultWord = new StringBuilder();
 
-        for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            // Transformer chaque lettre en utilisant modifyChar et ajouter le résultat à resultWord
-            String transformedChar = modifyChar(String.valueOf(ch), key);
-            resultWord.append(transformedChar);
+        for (int i = 0; i < input.length(); i++) { //boucle sur la longueur du message
+            char ch = input.charAt(i); // stock un char dans une variable
+            String transformedChar = modifyChar(String.valueOf(ch), key); // appelle une fonction avec return "modifyChar"
+            resultWord.append(transformedChar); // inrementera les lettres chiffrées a result world
         }
 
-        System.out.println("Mot transformé : " + resultWord.toString());
+        System.out.println("Mot chiffré : " + resultWord.toString());
     }
 
-    public static void decrypt(String messageCrypted, String key){
-            crypt(messageCrypted, key);
+    public static void decrypt(String messageCrypted, String key) {
+        StringBuilder decryptedWord = new StringBuilder();
+
+        for (int i = 0; i < messageCrypted.length(); i++) {
+            char ch = messageCrypted.charAt(i);
+            String decryptedChar = reverseModifyChar(String.valueOf(ch), key);
+            decryptedWord.append(decryptedChar);
+        }
+
+        System.out.println("Texte déchiffré : " + decryptedWord.toString());
     }
 
     private static String modifyChar(String input, String key) {
         String result = input;
+
+        // Transformation initiale avec les rouleaux
         for (int i = 0; i < key.length(); i++) {
-            char rollPosition = key.charAt(i); // Utiliser le caractère de `key` directement
-            result = roll(result, String.valueOf(rollPosition));
-            System.out.println("entrée du roll lettre : " + input + " Roll Position sur la lettre: " + rollPosition + " sortie du roll lettre : " + result);
+            String rollPosition = String.valueOf(key.charAt(i));
+            result = roll(result, rollPosition);
         }
-        // Appliquer une seule fois le miroir après les transformations
-        result = modifyCharMirror(result, key);
+
+        // Appliquer le miroir
+        result = applyMirror(result);
+
+        // Transformation inverse des rouleaux
+        for (int i = key.length() - 1; i >= 0; i--) {
+            String rollPosition = String.valueOf(key.charAt(i));
+            result = roll(result, rollPosition);
+        }
+
         return result;
     }
 
-    private static String modifyCharMirror(String input, String key) {
-        StringBuilder resultMirror = new StringBuilder();
-        String keyMirror = new StringBuilder(key).reverse().toString();
+    private static String reverseModifyChar(String input, String key) {
+        String result = input;
 
-        char charMirror = inverseChar(input.charAt(0));
-        System.out.println("mirror input : " + charMirror);
-        System.out.println("mirror input : " + keyMirror);
-        // Passer le caractère inversé à travers les rouleaux en utilisant la clé inversée
-        String transformedMirror = String.valueOf(charMirror);
-        for (int i = 0; i < keyMirror.length(); i++) {
-            char rollPosition = keyMirror.charAt(i);
-            transformedMirror = roll(transformedMirror, String.valueOf(rollPosition));
-            System.out.println(transformedMirror);
+        for (int i = 0; i < key.length(); i++) {
+            String rollPosition = String.valueOf(key.charAt(i));
+            result = reverseRoll(result, rollPosition);
         }
-        return transformedMirror;
+
+        result = applyMirror(result);
+
+        for (int i = key.length() - 1; i >= 0; i--) {
+            String rollPosition = String.valueOf(key.charAt(i));
+            result = reverseRoll(result, rollPosition);
+        }
+
+        return result;
     }
 
-    private static String roll(String input, String rollPosition){
-        String[] alphabetInput = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}; // ALPHABET entrée reste toujours fixe
-        String output = "";
-        int index = -1;
-        String[] alphabetOutput = {}; // déclaration alphabet de sortie
+    private static String applyMirror(String input) {
+        char mirroredChar = (char) ('z' - (input.charAt(0) - 'a'));
+        return String.valueOf(mirroredChar);
+    }
 
-        for (int i = 0; i < alphabetInput.length; i++) { //boucle pour faire correpsondre l'index à la lettre en entrée
-            if (alphabetInput[i].equals(input)) {
+    private static String roll(String input, String rollPosition) {
+        String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        int index = -1;
+
+        for (int i = 0; i < alphabet.length; i++) {
+            if (alphabet[i].equals(input)) {
                 index = i;
                 break;
             }
-
-
         }
 
-        alphabetOutput = switch (rollPosition) {
+        if (index == -1) return input;
+        String[] rollTable = getRollTable(rollPosition);
+        return rollTable[index];
+    }
+
+    private static String reverseRoll(String input, String rollPosition) {
+        String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        String[] rollTable = getRollTable(rollPosition);
+
+        int index = -1;
+        for (int i = 0; i < rollTable.length; i++) {
+            if (rollTable[i].equals(input)) {
+                index = i;
+                break;
+            }
+        }
+
+        return (index != -1) ? alphabet[index] : input;
+    }
+
+    private static String[] getRollTable(String rollPosition) {
+        return switch (rollPosition) {
             case "a" -> new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
             case "b" -> new String[]{"b", "a", "d", "c", "f", "e", "h", "g", "j", "i", "l", "k", "n", "m", "p", "o", "r", "q", "t", "s", "v", "u", "x", "w", "z", "y"};
             case "c" -> new String[]{"c", "d", "e", "f", "g", "h", "a", "b", "j", "i", "l", "k", "n", "m", "p", "o", "r", "q", "t", "s", "u", "v", "x", "w", "y", "z"};
@@ -90,19 +129,10 @@ public class Enigma {
             case "x" -> new String[]{"x", "y", "z", "a", "b", "c", "d", "e", "o", "p", "q", "r", "s", "t", "u", "v", "w", "f", "g", "h", "i", "j", "k", "l", "m", "n"};
             case "y" -> new String[]{"y", "z", "a", "b", "c", "d", "e", "f", "p", "q", "r", "s", "t", "u", "v", "w", "x", "g", "h", "i", "j", "k", "l", "m", "n", "o"};
             case "z" -> new String[]{"z", "a", "b", "c", "d", "e", "f", "g", "q", "r", "s", "t", "u", "v", "w", "x", "y", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
-
-            default -> {
-                System.out.println("Position non valide");
-                yield new String[]{};
-            }
+            default -> throw new IllegalStateException("Unexpected value: " + rollPosition);
         };
-
-        output = alphabetOutput[index]; // attribue la lettre correspondant à l'index du tableau
-
-        return output;
-    }
-
-    public static char inverseChar(char ch) {
-            return (char) ('z' - (ch - 'a')); // Calcul de l'inverse
     }
 }
+/*
+
+ */
