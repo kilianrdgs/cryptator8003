@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.example.saving.savingMethod;
 
-public class ceasarMethod {
+public class CeasarMethod {
 
     public static void ceasarEncryption(String message, int key) throws IOException {
 

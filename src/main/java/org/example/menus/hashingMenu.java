@@ -3,9 +3,9 @@ package org.example.menus;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.example.details.consoleClearing;
+import org.example.details.ConsoleClearing;
 
-public class hashingMenu {
+public class HashingMenu {
     private static Scanner _scan = new Scanner(System.in);
 
     private static Boolean _isChoiceCorrect = true;
@@ -13,7 +13,7 @@ public class hashingMenu {
     public static void showHashingMenu() {
 
         // Clears the console
-        consoleClearing.clearConsole();
+        ConsoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array

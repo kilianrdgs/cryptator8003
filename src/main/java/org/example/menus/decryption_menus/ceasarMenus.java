@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.example.details.consoleClearing;
+import org.example.details.ConsoleClearing;
 
-public class ceasarMenus {
+public class CeasarMenus {
 
     private static Scanner _scan = new Scanner(System.in);
 
@@ -14,7 +14,7 @@ public class ceasarMenus {
     private static Boolean _isKeyChoiceCorrect = true;
     
     public static void showCeasarDecryptionMenu() throws IOException {
-        consoleClearing.clearConsole();
+        ConsoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array

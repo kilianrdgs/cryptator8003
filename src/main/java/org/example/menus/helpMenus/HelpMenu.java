@@ -1,42 +1,42 @@
-package org.example.menus;
+package org.example.menus.helpMenus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.details.ConsoleClearing;
-import org.example.menus.encryption_menus.CeasarMenus;
 
-public class EncryptionMenu {
-    private static Scanner _scan = new Scanner(System.in);
+public class HelpMenu {
 
     private static Boolean _isChoiceCorrect = true;
-
-    public static void showEncryptionMenu() {
+    private static Scanner _scan = new Scanner(System.in);
+    
+    public static void showHelpMenu() {
 
         // Clears the console
         ConsoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>(); // Creates an array of different menu options
         // Adds the different options to the array
-        menus.add("                   ____ _     _  __  __               ");
-        menus.add("                  / ___| |__ (_)/ _|/ _|_ __ ___ _ __ ");
-        menus.add("                 | |   | '_ \\| | |_| |_| '__/ _ \\ '__|");
-        menus.add("                 | |___| | | | |  _|  _| | |  __/ |   ");
-        menus.add("                  \\____|_| |_|_|_| |_| |_|  \\___|_|   ");
+        menus.add("                         _   _      _       _ _ ");
+        menus.add("                        | | | | ___| |_ __ | | |");
+        menus.add("                        | |_| |/ _ \\ | '_ \\| | |");
+        menus.add("                        |  _  |  __/ | |_) |_|_|");
+        menus.add("                        |_| |_|\\___|_| .__/(_|_)");
+        menus.add("                                     |_|         ");        
         menus.add("----------------------------------------------------------------------------");
         if (!_isChoiceCorrect) {
             menus.add("                    VEUILLEZ CHOISIR UNE OPTION VALIDE");
             menus.add("----------------------------------------------------------------------------");
         }
-        menus.add("                     [1] Méthode -CÉSAR-");
-        menus.add("                     [2] Méthode -VIGENÈRE-");
-        menus.add("                     [3] Méthode -CARRÉ DE POLYBE-");
-        menus.add("                     [4] Méthode -L.F.S.R.-");
-        menus.add("                     [5] Méthode -MACHINE ENIGMA-");
-        menus.add("                     [6] Méthode -RC4-");
+        menus.add("                 [1] C'est quoi, le Chiffrement CÉSAR ?");
+        menus.add("                 [2] C'est quoi, le Chiffrement VIGENÈRE ?");
+        menus.add("                 [3] C'est quoi, le Chiffrement CARRÉ DE POLYBE ?");
+        menus.add("                 [4] C'est quoi, le Chiffrement L.F.S.R. ?");
+        menus.add("                 [5] C'est quoi, le Chiffrement MACHINE ENIGMA ?");
+        menus.add("                 [6] C'est quoi, le Chiffrement RC4 ?");
         menus.add("");
-        menus.add("                     [ENTER] Revenir au menu principal");
+        menus.add("                 [ENTER] Revenir au menu principal");
         menus.add("----------------------------------------------------------------------------");
 
         // Display the menu
@@ -45,11 +45,11 @@ public class EncryptionMenu {
         }
     }
 
-    public static void getEncryptionMenu() throws IOException {
+    public static void getHelpMenu() throws IOException {
         while (true) {
 
             // Call encryption menu
-            showEncryptionMenu();
+            showHelpMenu();
             System.out.print("[OPTION CHOISIE] >>> ");
             String answer = _scan.nextLine();
 
@@ -57,28 +57,27 @@ public class EncryptionMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de César");
-                    CeasarMenus.getCeasarEncryptionMenu();
+                    //helpMenus.getCeasarHelpMenu();
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Vigenère");
+                    //helpMenus.getVigenereHelpMenu();
                     break;
                 case "3":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de Carré de Polybe");
+                    //helpMenus.getPolybiusHelpMenu();
                     break;
                 case "4":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de L.F.S.R.");
+                    //helpMenus.getLFSRHelpMenu();
                     break;
                 case "5":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de la Machine Enigma");
+                    //helpMenus.getEnigmaHelpMenu();
                     break;
                 case "6":
                     _isChoiceCorrect = true;
-                    System.out.println("Utiliser la méthode de RC4");
+                    //helpMenus.getRC4HelpMenu();
                     break;
                 case "":
                     _isChoiceCorrect = true;

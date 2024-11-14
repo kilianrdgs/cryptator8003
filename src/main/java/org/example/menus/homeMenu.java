@@ -4,15 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.example.details.consoleClearing;
+import org.example.details.ConsoleClearing;
+import org.example.menus.helpMenus.HelpMenu;
 
-public class homeMenu {
+public class HomeMenu {
     private static Scanner _scan = new Scanner(System.in);
     private static Boolean _isChoiceCorrect = true;
 
     public static void showHomeMenu() {
         // Clears the console
-        consoleClearing.clearConsole();
+        ConsoleClearing.clearConsole();
 
         ArrayList<String> menus = new ArrayList<>();
         menus.add("   ____                  _        _                ___   ___   ___ _____ ");
@@ -48,19 +49,19 @@ public class homeMenu {
             switch (answer) {
                 case "1":
                     _isChoiceCorrect = true;
-                    encryptionMenu.getEncryptionMenu();
+                    EncryptionMenu.getEncryptionMenu();
                     break;
                 case "2":
                     _isChoiceCorrect = true;
-                    decryptionMenu.getDecryptionMenu();
+                    DecryptionMenu.getDecryptionMenu();
                     break;
                 case "3":
                     _isChoiceCorrect = true;
-                    hashingMenu.getHashingMenu();
+                    HashingMenu.getHashingMenu();
                     break;
                 case "4":
                     _isChoiceCorrect = true;
-                    encryptionMenu.getEncryptionMenu();
+                    EncryptionMenu.getEncryptionMenu();
                     break;
                 case "5":
                     _isChoiceCorrect = true;
@@ -68,12 +69,12 @@ public class homeMenu {
                     break;
                 case "6":
                     _isChoiceCorrect = true;
-                    System.out.println("Besoin d'aide ?");
+                    HelpMenu.getHelpMenu();
                     break;
                 case "":
                     _isChoiceCorrect = true;
                     ArrayList<String> menus = new ArrayList<>();
-                    consoleClearing.clearConsole();
+                    ConsoleClearing.clearConsole();
                     menus.add("                 _                               _        _ ");
                     menus.add("                / \\  _   _   _ __ _____   _____ (_)_ __  | |");
                     menus.add("               / _ \\| | | | | '__/ _ \\ \\ / / _ \\| | '__| | |");
