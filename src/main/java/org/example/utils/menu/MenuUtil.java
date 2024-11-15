@@ -2,7 +2,6 @@ package org.example.utils.menu;
 
 import org.example.menus.MainMenu;
 import org.example.utils.FileUtil;
-
 import java.util.Scanner;
 import java.util.function.Function;
 
