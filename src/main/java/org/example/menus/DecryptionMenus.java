@@ -19,6 +19,7 @@ public class DecryptionMenus {
                 .addOption("2", "Méthode -VIGENÈRE-", () -> VigenereMenus.getVigenereMenu(false, false, null))
                 .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(false, false, null))
                 .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(false, false, null))
+                .addOption("5", "Méthode -ENIGMA-", () -> EnigmaMenus.getEnigmaMenu(false, false, null))
                 .addOption("", "Retour", MainMenu::getMainMenu);
     }
 }

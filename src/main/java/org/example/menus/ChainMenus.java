@@ -58,7 +58,8 @@ public class ChainMenus {
                 .addOption("2", "Vigenère", () -> VigenereMenus.getVigenereMenu(isEncrypting, true, currentMessage))
                 .addOption("3", "Carré de Polybe", () -> PolybiusMenus.getPolybiusMenu(isEncrypting, true, currentMessage))
                 .addOption("4", "RC4", () -> RC4Menus.getRC4Menu(isEncrypting, true, currentMessage))
-                .addOption("5", "Terminer et sauvegarder", () -> MenuUtil.createSaveResultMenu(currentMessage, r -> MainMenu.getMainMenu()))
+                .addOption("5", "Enigma", () -> EnigmaMenus.getEnigmaMenu(isEncrypting, true, currentMessage))
+                .addOption("6", "Terminer et sauvegarder", () -> MenuUtil.createSaveResultMenu(currentMessage, r -> MainMenu.getMainMenu()))
                 .addOption("", "Retour", MainMenu::getMainMenu);
     }
 
