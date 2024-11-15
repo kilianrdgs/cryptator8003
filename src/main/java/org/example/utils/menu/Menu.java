@@ -110,12 +110,14 @@ public class Menu {
                     Supplier<Menu> action = option.getAction();
                     if (action != null) {
                         Menu nextMenu = action.get();
-                        if (nextMenu != null) {
-                            return nextMenu;
+                        // Return null to exit the program
+                        if (nextMenu == null) {
+                            return null;
                         }
+                        return nextMenu;
                     }
                     setShowError(false);
-                    continue;
+                    break;
                 }
             }
 
