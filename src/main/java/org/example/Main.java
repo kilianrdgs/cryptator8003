@@ -8,11 +8,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class Main {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-      HomeMenu.getHomeMenu();
-        //Menu currentMenu = MainMenu.getMainMenu();
+        // HomeMenu.getHomeMenu();
+        Menu currentMenu = MainMenu.getMainMenu();
 
-        //while (currentMenu != null) {
-        //    currentMenu = currentMenu.run();
-        //}
+        while (currentMenu != null) {
+            currentMenu = currentMenu.run();
+        }
     }
 }

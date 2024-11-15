@@ -14,6 +14,13 @@ public class MenuUtil {
         return scanner.nextLine();
     }
 
+    /**
+     * Waits for the user to press Enter before continuing
+     */
+    public static void waitForEnter() {
+        scanner.nextLine();
+    }
+
     public static Menu createSaveResultMenu(String result, Function<String, Menu> returnMenu) {
         Banner banner = Banner.create(
                 "                 Sauvegarde du Message",

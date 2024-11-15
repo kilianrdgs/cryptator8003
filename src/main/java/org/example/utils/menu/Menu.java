@@ -10,6 +10,8 @@ import java.util.function.Supplier;
  */
 public class Menu {
     private Banner banner;
+    private String title;
+    private String body;
     private List<MenuOption> options;
     private String separator;
     private boolean showError;
@@ -24,6 +26,26 @@ public class Menu {
 
     public Menu setBanner(Banner banner) {
         this.banner = banner;
+        return this;
+    }
+
+    /**
+     * Sets the title to be displayed below the banner
+     * @param title The title text
+     * @return This menu instance for method chaining
+     */
+    public Menu setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    /**
+     * Sets the body text to be displayed below the title and above the options
+     * @param body The body text
+     * @return This menu instance for method chaining
+     */
+    public Menu setBody(String body) {
+        this.body = body;
         return this;
     }
 
@@ -50,6 +72,18 @@ public class Menu {
 
         // Display separator
         System.out.println(separator);
+
+        // Display title if present
+        if (title != null && !title.isEmpty()) {
+            System.out.println(title);
+            System.out.println(separator);
+        }
+
+        // Display body if present
+        if (body != null && !body.isEmpty()) {
+            System.out.println(body);
+            System.out.println(separator);
+        }
 
         // Display error if needed
         if (showError) {
