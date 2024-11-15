@@ -28,7 +28,6 @@ public class MainMenu {
                 .addOption("1", "Chiffrer un message", EncryptionMenus::getEncryptionMenu)
                 .addOption("2", "Déchiffrer un message", DecryptionMenus::getDecryptionMenu)
                 .addOption("3", "Hacher un message", HashingMenus::getHashingMethodMenu)
-                .addOption("4", "Chiffrer, puis hacher un message", () -> null)
                 .addOption("5", "Succéder plusieurs chiffrements", () -> ChainMenus.getChainMenu(true))
                 .addOption("6", "Déchiffrer en chaîne", () -> ChainMenus.getChainMenu(false))
                 .addOption("7", "Besoin d'aide ?", HelpMenu::getHelpMenu)
