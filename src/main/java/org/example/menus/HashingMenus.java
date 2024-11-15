@@ -29,15 +29,15 @@ public class HashingMenus {
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "MD5 Method", () -> {
+                .addOption("1", "Méthode MD5", () -> {
                     currentMethod = "MD5";
                     return getHashingMenu();
                 })
-                .addOption("2", "SHA-256 Method", () -> {
+                .addOption("2", "Méthode SHA-256", () -> {
                     currentMethod = "SHA-256";
                     return getHashingMenu();
                 })
-                .addOption("", "Back to main menu", () -> MainMenu.getMainMenu());
+                .addOption("", "Retour au menu principal", () -> MainMenu.getMainMenu());
     }
 
     /**
@@ -52,14 +52,14 @@ public class HashingMenus {
                 "                   |  _  | (_| \\__ \\ | | | | | | | (_| |",
                 "                   |_| |_|\\__,_|___/_| |_|_|_| |_|\\__, |",
                 "                                                  |___/ ",
-                "                   Method: " + currentMethod
+                "                   Méthode : " + currentMethod
         );
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "Manual input", () -> handleMessageInput(true))
-                .addOption("2", "Import from file", () -> handleMessageInput(false))
-                .addOption("", "Back", () -> getHashingMethodMenu());
+                .addOption("1", "Saisie manuelle", () -> handleMessageInput(true))
+                .addOption("2", "Importer depuis un fichier", () -> handleMessageInput(false))
+                .addOption("", "Retour", () -> getHashingMethodMenu());
     }
 
     /**
@@ -81,13 +81,13 @@ public class HashingMenus {
                 result = SHA256.hash(message);
             }
             
-            System.out.println("\nHashed message: " + result);
+            System.out.println("\nMessage haché : " + result);
             
             return MenuUtil.createSaveResultMenu(result, r -> getHashingMenu());
             
         } catch (Exception e) {
-            System.out.println("Error during hashing: " + e.getMessage());
-            System.out.println("\nPress Enter to continue...");
+            System.out.println("Erreur lors du hachage : " + e.getMessage());
+            System.out.println("\nAppuyez sur Entrée pour continuer...");
             MenuUtil.waitForEnter();
             return getHashingMenu();
         }
