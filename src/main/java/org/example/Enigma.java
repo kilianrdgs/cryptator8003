@@ -2,43 +2,44 @@ package org.example;
 
 public class Enigma {
 
-    public static void crypt(String input, String key) { // fonction qui est appellée pour commencer a crypter
-        StringBuilder resultWord = new StringBuilder();
+    public static void crypt(String input, String key) { // Function called to start encryption
+        StringBuilder resultWord = new StringBuilder(); // Creates a mutable string container to progressively build the final string
 
-        for (int i = 0; i < input.length(); i++) { //boucle sur la longueur du message
-            char ch = input.charAt(i); // stock un char dans une variable
-            String transformedChar = modifyChar(String.valueOf(ch), key); // appelle une fonction avec return "modifyChar"
-            resultWord.append(transformedChar); // inrementera les lettres chiffrées a result world
+        for (int i = 0; i < input.length(); i++) { // Loop over the length of the message
+            char ch = input.charAt(i); // Stores a character in a variable
+            String transformedChar = modifyChar(String.valueOf(ch), key); // Calls the "modifyChar" function and returns the result
+            resultWord.append(transformedChar); // Adds the encrypted letters to resultWord
         }
 
-        System.out.println("Mot chiffré : " + resultWord.toString());
+        System.out.println("Encrypted word: " + resultWord.toString());
     }
 
-    public static void decrypt(String messageCrypted, String key) {
+    public static void decrypt(String messageCrypted, String key) { // Function called to start decryption
         StringBuilder decryptedWord = new StringBuilder();
 
-        for (int i = 0; i < messageCrypted.length(); i++) {
+        for (int i = 0; i < messageCrypted.length(); i++) { // Loop over the length of the encrypted message
             char ch = messageCrypted.charAt(i);
-            String decryptedChar = reverseModifyChar(String.valueOf(ch), key);
-            decryptedWord.append(decryptedChar);
+            String decryptedChar = reverseModifyChar(String.valueOf(ch), key); // Calls the reverseModifyChar function with the character as a parameter
+            decryptedWord.append(decryptedChar); // Adds the decrypted character to the final word
         }
 
-        System.out.println("Texte déchiffré : " + decryptedWord.toString());
+        System.out.println("Decrypted text: " + decryptedWord.toString());
     }
 
+    // Function called to modify a character by passing it through all the rolls
     private static String modifyChar(String input, String key) {
         String result = input;
 
-        // Transformation initiale avec les rouleaux
+        // Initial transformation with the rolls
         for (int i = 0; i < key.length(); i++) {
             String rollPosition = String.valueOf(key.charAt(i));
             result = roll(result, rollPosition);
         }
 
-        // Appliquer le miroir
+        // Apply the mirror
         result = applyMirror(result);
 
-        // Transformation inverse des rouleaux
+        // Reverse transformation with the rolls
         for (int i = key.length() - 1; i >= 0; i--) {
             String rollPosition = String.valueOf(key.charAt(i));
             result = roll(result, rollPosition);
@@ -47,15 +48,16 @@ public class Enigma {
         return result;
     }
 
+    // Reproduces the modifyChar function but in reverse
     private static String reverseModifyChar(String input, String key) {
         String result = input;
 
-        for (int i = 0; i < key.length(); i++) {
-            String rollPosition = String.valueOf(key.charAt(i));
-            result = reverseRoll(result, rollPosition);
+        for (int i = 0; i < key.length(); i++) { // Loop over the key
+            String rollPosition = String.valueOf(key.charAt(i)); // Retrieves the roll position from the key
+            result = reverseRoll(result, rollPosition); // Calls the reverseRoll function with "itself" and the roll position as arguments
         }
 
-        result = applyMirror(result);
+        result = applyMirror(result); // Calls the applyMirror function and assigns its return value to result
 
         for (int i = key.length() - 1; i >= 0; i--) {
             String rollPosition = String.valueOf(key.charAt(i));
@@ -65,34 +67,37 @@ public class Enigma {
         return result;
     }
 
+    // Function to invert the letter of the alphabet as a mirror
     private static String applyMirror(String input) {
         char mirroredChar = (char) ('z' - (input.charAt(0) - 'a'));
         return String.valueOf(mirroredChar);
     }
 
+    // Function to apply a roll transformation
     private static String roll(String input, String rollPosition) {
         String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
         int index = -1;
 
-        for (int i = 0; i < alphabet.length; i++) {
+        for (int i = 0; i < alphabet.length; i++) { // Loop over the alphabet array to match the input and retrieve its position
             if (alphabet[i].equals(input)) {
                 index = i;
                 break;
             }
         }
 
-        if (index == -1) return input;
-        String[] rollTable = getRollTable(rollPosition);
-        return rollTable[index];
+        if (index == -1) return input; // Returns the input if there's an error
+        String[] rollTable = getRollTable(rollPosition); // Retrieves the roll at the selected position by passing the corresponding letter as an argument
+        return rollTable[index]; // Returns the letter from the roll corresponding to the index of the input
     }
 
+    // Function to reverse a roll transformation
     private static String reverseRoll(String input, String rollPosition) {
         String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-        String[] rollTable = getRollTable(rollPosition);
+        String[] rollTable = getRollTable(rollPosition); // Retrieves the roll at the selected position
 
         int index = -1;
         for (int i = 0; i < rollTable.length; i++) {
-            if (rollTable[i].equals(input)) {
+            if (rollTable[i].equals(input)) { // Matches the index of the input with the index in the rollTable
                 index = i;
                 break;
             }
@@ -101,7 +106,7 @@ public class Enigma {
         return (index != -1) ? alphabet[index] : input;
     }
 
-    private static String[] getRollTable(String rollPosition) {
+    private static String[] getRollTable(String rollPosition) { // Represents a roll in its 26 positions
         return switch (rollPosition) {
             case "a" -> new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
             case "b" -> new String[]{"b", "a", "d", "c", "f", "e", "h", "g", "j", "i", "l", "k", "n", "m", "p", "o", "r", "q", "t", "s", "v", "u", "x", "w", "z", "y"};
@@ -133,6 +138,3 @@ public class Enigma {
         };
     }
 }
-/*
-
- */
