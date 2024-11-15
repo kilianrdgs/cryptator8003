@@ -29,8 +29,7 @@ public class MenuUtil {
         return new Menu()
                 .setBanner(banner)
                 .addOption("1", "Sauvegarder le message", () -> handleSaveMessage(result, returnMenu))
-                .addOption("2", "Terminer sans sauvegarder", MainMenu::getMainMenu)
-                .addOption("", "Retour", () -> returnMenu.apply(result));
+                .addOption("2", "Terminer sans sauvegarder", MainMenu::getMainMenu);
     }
 
     private static Menu handleSaveMessage(String message, Function<String, Menu> returnMenu) {
