@@ -1,15 +1,29 @@
 package org.example.encrypting_methods;
 
 import org.example.classes.PolybiusSquare;
+import org.example.utils.TextUtil;
 
 public class Polybius {
+    /**
+     * Validates that the input text contains no numbers
+     * @throws IllegalArgumentException if the text contains numbers
+     */
+    private static void validateInput(String text) {
+        if (text.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Le message ne doit pas contenir de chiffres.");
+        }
+    }
 
     public static String encrypt(String text, PolybiusSquare square, boolean columnFirst) {
+        validateInput(text);
         StringBuilder encryptedText = new StringBuilder();
 
         // Iterate through each character in the text
         for (int i = 0; i < text.length(); i++) {
             char character = Character.toLowerCase(text.charAt(i));
+            
+            // Remove accents from the character
+            character = TextUtil.removeAccents(character);
 
             // If character is not a letter, keep it as is
             if (!Character.isLetter(character)) {

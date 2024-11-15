@@ -129,7 +129,7 @@ public class PolybiusMenus {
                 .setBanner(banner)
                 .addOption("1", "Confirmer et continuer", () -> getSaveSquareMenu(square))
                 .addOption("2", "Recommencer", () -> getCreateSquareMenu())
-                .addOption("", "Retour au menu principal", () -> getPolybiusMenu(isEncrypting));
+                .addOption("", "Retour", () -> getPolybiusMenu(isEncrypting));
     }
 
     private static Menu getSaveSquareMenu(PolybiusSquare square) {
@@ -210,8 +210,11 @@ public class PolybiusMenus {
                 "                 -------------------------------"
         );
 
+        String note = "\nNote : Le message ne doit pas contenir de chiffres.";
+
         return new Menu()
                 .setBanner(banner)
+                .setBody(note)
                 .addOption("1", "Saisie manuelle", () -> handleMessageInput(square, columnFirst, isEncrypting, true))
                 .addOption("2", "Importer depuis un fichier", () -> handleMessageInput(square, columnFirst, isEncrypting, false))
                 .addOption("", "Retour", () -> getReadingModeMenu(square, isEncrypting));
@@ -222,11 +225,19 @@ public class PolybiusMenus {
         String message = MenuUtil.getMessageFromInput(manual, v -> getMessageSourceMenu(square, columnFirst, isEncrypting));
         if (message == null) return getMessageSourceMenu(square, columnFirst, isEncrypting);
 
-        String result = isEncrypting ?
-                Polybius.encrypt(message, square, columnFirst) :
-                Polybius.decrypt(message, square, columnFirst);
+        String result;
+        try {
+            result = isEncrypting ?
+                    Polybius.encrypt(message, square, columnFirst) :
+                    Polybius.decrypt(message, square, columnFirst);
 
-        System.out.println("\nMessage " + (isEncrypting ? "chiffré" : "déchiffré") + " : " + result);
+            System.out.println("\nMessage " + (isEncrypting ? "chiffré" : "déchiffré") + " : " + result);
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nErreur : " + e.getMessage());
+            System.out.println("\nAppuyez sur Entrée pour continuer...");
+            scanner.nextLine();
+            return getMessageSourceMenu(square, columnFirst, isEncrypting);
+        }
 
         return isEncrypting ?
                 MenuUtil.createSaveResultMenu(result, r -> getPolybiusMenu(true)) :
