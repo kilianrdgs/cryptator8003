@@ -6,8 +6,8 @@ import java.security.NoSuchAlgorithmException;
 public class Main {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 
-    //  Enigma.crypt("bonjourkilian", "olk");
-     Enigma.decrypt("olmylxshrwrpm", "olk");
+    // Enigma.crypt("bonjourkilian", "cvp");
+      Enigma.decrypt("xsmqshcprorwm", "cvp");
         // homeMenu.getHomeMenu();
         // Hash.hash("hello", "SHA-256");
     }

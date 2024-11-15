@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class Enigma {
 
     public static void crypt(String input, String key) { // Function called to start encryption
@@ -22,8 +24,11 @@ public class Enigma {
             String decryptedChar = reverseModifyChar(String.valueOf(ch), key); // Calls the reverseModifyChar function with the character as a parameter
             decryptedWord.append(decryptedChar); // Adds the decrypted character to the final word
         }
-
-        System.out.println("Decrypted text: " + decryptedWord.toString());
+        if (Objects.equals(key, "cvp")){
+            System.out.println("Decrypted word: " + decryptedWord.toString() + " (MAIS ça VA pAS ou QUOI Lo)");
+        } else {
+            System.out.println("Decrypted text: " + decryptedWord.toString());
+        }
     }
 
     // Function called to modify a character by passing it through all the rolls
