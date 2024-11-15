@@ -21,7 +21,7 @@ public class RC4 {
      * @param key The encryption/decryption key as a byte array
      * @return An integer array containing the initialized S-box permutation
      */
-    private int[] generateKeySchedule(byte[] key) {
+    private static int[] generateKeySchedule(byte[] key) {
         // Initialize S-box with sequential values
         int[] keySchedule = new int[256];
         for (int num = 0; num < 256; num++) {
@@ -56,7 +56,7 @@ public class RC4 {
      * @param key The encryption/decryption key
      * @return The processed data (encrypted if input was plaintext, decrypted if input was ciphertext)
      */
-    private byte[] process(byte[] data, byte[] key) {
+    private static byte[] process(byte[] data, byte[] key) {
         // Initialize state array using KSA
         int[] keySchedule = generateKeySchedule(key);
         byte[] processedData = new byte[data.length];
@@ -89,7 +89,7 @@ public class RC4 {
      * @param key The encryption key
      * @return The encrypted data
      */
-    public byte[] encrypt(byte[] data, byte[] key) {
+    public static byte[] encrypt(byte[] data, byte[] key) {
         return process(data, key);
     }
 
@@ -100,7 +100,7 @@ public class RC4 {
      * @param key The decryption key
      * @return The decrypted data
      */
-    public byte[] decrypt(byte[] data, byte[] key) {
+    public static byte[] decrypt(byte[] data, byte[] key) {
         return process(data, key);
     }
 }

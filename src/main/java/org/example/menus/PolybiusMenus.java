@@ -13,10 +13,14 @@ import java.util.Scanner;
 
 public class PolybiusMenus {
     private static Scanner scanner = new Scanner(System.in);
-    private static boolean isEncrypting;
+    protected static boolean isEncrypting;
+    private static String chainMessage;
+    private static boolean chainMode;
 
-    public static Menu getPolybiusMenu(boolean forEncryption) {
+    public static Menu getPolybiusMenu(boolean forEncryption, boolean inChainMode, String currentMessage) {
         isEncrypting = forEncryption;
+        chainMode = inChainMode;
+        chainMessage = currentMessage;
 
         Banner banner = Banner.create(
                 "                   ____       _       _          ",
@@ -27,13 +31,18 @@ public class PolybiusMenus {
                 "                                |___/             "
         );
 
-        return new Menu()
-                .setBanner(banner)
+        Menu menu = new Menu().setBanner(banner);
+
+        if (chainMode) {
+            menu.setTitle("\nMessage actuel : " + chainMessage);
+        }
+
+        return menu
                 .addOption("1", "Créer un nouveau carré", () -> getCreateSquareMenu())
                 .addOption("2", "Importer un carré existant", () -> handleImportSquare())
-                .addOption("", "Retour", () -> isEncrypting ?
-                        EncryptionMenus.getEncryptionMenu() :
-                        DecryptionMenus.getDecryptionMenu()
+                .addOption("", "Retour", () -> chainMode ? 
+                        ChainMenus.getMethodSelectionMenu() :
+                        (isEncrypting ? EncryptionMenus.getEncryptionMenu() : DecryptionMenus.getDecryptionMenu())
                 );
     }
 
@@ -47,7 +56,7 @@ public class PolybiusMenus {
                 .setBanner(banner)
                 .addOption("1", "Création manuelle", () -> handleManualSquareCreation())
                 .addOption("2", "Création aléatoire", () -> handleRandomSquareCreation())
-                .addOption("", "Retour", () -> getPolybiusMenu(isEncrypting));
+                .addOption("", "Retour", () -> getPolybiusMenu(isEncrypting, chainMode, chainMessage));
     }
 
     private static Menu handleManualSquareCreation() {
@@ -129,7 +138,7 @@ public class PolybiusMenus {
                 .setBanner(banner)
                 .addOption("1", "Confirmer et continuer", () -> getSaveSquareMenu(square))
                 .addOption("2", "Recommencer", () -> getCreateSquareMenu())
-                .addOption("", "Retour au menu principal", () -> getPolybiusMenu(isEncrypting));
+                .addOption("", "Retour au menu principal", () -> getPolybiusMenu(isEncrypting, chainMode, chainMessage));
     }
 
     private static Menu getSaveSquareMenu(PolybiusSquare square) {
@@ -141,9 +150,7 @@ public class PolybiusMenus {
         return new Menu()
                 .setBanner(banner)
                 .addOption("1", "Sauvegarder le carré", () -> handleSaveSquare(square))
-                .addOption("2", "Continuer sans sauvegarder", () -> isEncrypting ?
-                        handleEncryption(square) :
-                        handleDecryption(square))
+                .addOption("2", "Continuer sans sauvegarder", () -> getReadingModeMenu(square))
                 .addOption("", "Retour", () -> getConfirmSquareMenu(square));
     }
 
@@ -159,9 +166,7 @@ public class PolybiusMenus {
         System.out.println("\nAppuyez sur Entrée pour continuer...");
         scanner.nextLine();
 
-        return isEncrypting ?
-                handleEncryption(square) :
-                handleDecryption(square);
+        return getReadingModeMenu(square);
     }
 
     private static Menu handleImportSquare() {
@@ -171,26 +176,16 @@ public class PolybiusMenus {
             PolybiusSquare square = PolybiusSquare.loadFromFile(filename);
             System.out.println("\nCarré importé avec succès :");
             square.display();
-            return isEncrypting ?
-                    handleEncryption(square) :
-                    handleDecryption(square);
+            return getReadingModeMenu(square);
         } catch (Exception e) {
             System.out.println("Erreur lors de l'importation : " + e.getMessage());
             System.out.println("Appuyez sur Entrée pour continuer...");
             scanner.nextLine();
-            return getPolybiusMenu(isEncrypting);
+            return getPolybiusMenu(isEncrypting, chainMode, chainMessage);
         }
     }
 
-    private static Menu handleEncryption(PolybiusSquare square) {
-        return getReadingModeMenu(square, true);
-    }
-
-    private static Menu handleDecryption(PolybiusSquare square) {
-        return getReadingModeMenu(square, false);
-    }
-
-    private static Menu getReadingModeMenu(PolybiusSquare square, boolean isEncrypting) {
+    private static Menu getReadingModeMenu(PolybiusSquare square) {
         Banner banner = Banner.create(
                 "                 Mode de Lecture",
                 "                 --------------"
@@ -198,38 +193,36 @@ public class PolybiusMenus {
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "Colonne puis Ligne", () -> getMessageSourceMenu(square, true, isEncrypting))
-                .addOption("2", "Ligne puis Colonne", () -> getMessageSourceMenu(square, false, isEncrypting))
-                .addOption("", "Retour", () -> getPolybiusMenu(isEncrypting));
+                .addOption("1", "Colonne puis Ligne", () -> processMessage(square, true))
+                .addOption("2", "Ligne puis Colonne", () -> processMessage(square, false))
+                .addOption("", "Retour", () -> getPolybiusMenu(isEncrypting, chainMode, chainMessage));
     }
 
-    private static Menu getMessageSourceMenu(PolybiusSquare square, boolean columnFirst, boolean isEncrypting) {
-        Banner banner = Banner.create(
-                isEncrypting ? "                 Source du Message à Chiffrer"
-                        : "                 Source du Message Chiffré",
-                "                 -------------------------------"
+    private static Menu processMessage(PolybiusSquare square, boolean columnFirst) {
+        String message = chainMode ? chainMessage : MenuUtil.getInputFromUser(
+            isEncrypting ? "Message à chiffrer : " : "Message chiffré : "
         );
 
-        return new Menu()
-                .setBanner(banner)
-                .addOption("1", "Saisie manuelle", () -> handleMessageInput(square, columnFirst, isEncrypting, true))
-                .addOption("2", "Importer depuis un fichier", () -> handleMessageInput(square, columnFirst, isEncrypting, false))
-                .addOption("", "Retour", () -> getReadingModeMenu(square, isEncrypting));
-    }
+        try {
+            String result = isEncrypting ?
+                    Polybius.encrypt(message, square, columnFirst) :
+                    Polybius.decrypt(message, square, columnFirst);
 
-    private static Menu handleMessageInput(PolybiusSquare square, boolean columnFirst, boolean isEncrypting, boolean manual) {
-        String prompt = isEncrypting ? "Message à chiffrer : " : "Message chiffré : ";
-        String message = MenuUtil.getMessageFromInput(manual, v -> getMessageSourceMenu(square, columnFirst, isEncrypting));
-        if (message == null) return getMessageSourceMenu(square, columnFirst, isEncrypting);
+            System.out.println("\nMessage " + (isEncrypting ? "chiffré" : "déchiffré") + " : " + result);
+            System.out.println("\nAppuyez sur Entrée pour continuer...");
+            MenuUtil.waitForEnter();
 
-        String result = isEncrypting ?
-                Polybius.encrypt(message, square, columnFirst) :
-                Polybius.decrypt(message, square, columnFirst);
-
-        System.out.println("\nMessage " + (isEncrypting ? "chiffré" : "déchiffré") + " : " + result);
-
-        return isEncrypting ?
-                MenuUtil.createSaveResultMenu(result, r -> getPolybiusMenu(true)) :
-                MainMenu.getMainMenu();
+            if (chainMode) {
+                ChainMenus.setCurrentMessage(result);
+                return ChainMenus.getMethodSelectionMenu();
+            } else {
+                return MenuUtil.createSaveResultMenu(result, r -> getPolybiusMenu(isEncrypting, false, null));
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nErreur : " + e.getMessage());
+            System.out.println("\nAppuyez sur Entrée pour continuer...");
+            MenuUtil.waitForEnter();
+            return getReadingModeMenu(square);
+        }
     }
 }

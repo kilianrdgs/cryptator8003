@@ -15,10 +15,11 @@ public class EncryptionMenus {
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "Méthode -CÉSAR-", () -> null)
-                .addOption("2", "Méthode -VIGENÈRE-", () -> null)
-                .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(true))
-                .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(true))
+                .addOption("1", "Méthode -CÉSAR-", () -> CaesarMenus.getCaesarMenu(true, false, null))
+                .addOption("2", "Méthode -VIGENÈRE-", () -> VigenereMenus.getVigenereMenu(true, false, null))
+                .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(true, false, null))
+                .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(true, false, null))
+                .addOption("5", "Méthode -ENIGMA-", () -> EnigmaMenus.getEnigmaMenu(true, false, null))
                 .addOption("", "Retour", MainMenu::getMainMenu);
     }
 }
