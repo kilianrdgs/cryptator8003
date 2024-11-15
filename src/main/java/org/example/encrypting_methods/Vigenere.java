@@ -13,7 +13,7 @@ public class Vigenere {
      * @param key The encryption key (must be lowercase letters only)
      * @return The encrypted message
      */
-    public String encrypt(String message, String key) {
+    public static String encrypt(String message, String key) {
         StringBuilder encryptedMessage = new StringBuilder();
     
         for (int i = 0; i < message.length(); i++) {
@@ -36,7 +36,7 @@ public class Vigenere {
      * @param key The decryption key (must be lowercase letters only)
      * @return The decrypted message
      */
-    public String decrypt(String message, String key) {
+    public static String decrypt(String message, String key) {
         StringBuilder decryptedMessage = new StringBuilder();
     
         for (int i = 0; i < message.length(); i++) {

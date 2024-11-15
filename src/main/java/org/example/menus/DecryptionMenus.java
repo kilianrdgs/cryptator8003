@@ -15,10 +15,10 @@ public class DecryptionMenus {
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "Méthode -CÉSAR-", () -> CaesarMenus.getCaesarMenu(false))
-                .addOption("2", "Méthode -VIGENÈRE-", () -> VigenereMenus.getVigenereMenu(false))
-                .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(false))
-                .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(false))
+                .addOption("1", "Méthode -CÉSAR-", () -> CaesarMenus.getCaesarMenu(false, false, null))
+                .addOption("2", "Méthode -VIGENÈRE-", () -> VigenereMenus.getVigenereMenu(false, false, null))
+                .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(false, false, null))
+                .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(false, false, null))
                 .addOption("", "Retour", MainMenu::getMainMenu);
     }
 }

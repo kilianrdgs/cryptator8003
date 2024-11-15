@@ -13,7 +13,7 @@ public class Caesar {
      * @param key The shift key (1-25)
      * @return The encrypted message
      */
-    public String encrypt(String message, int key) {
+    public static String encrypt(String message, int key) {
         StringBuilder encryptedMessage = new StringBuilder();
         
         for (int i = 0; i < message.length(); i++) {
@@ -33,7 +33,7 @@ public class Caesar {
      * @param key The shift key (1-25)
      * @return The decrypted message
      */
-    public String decrypt(String message, int key) {
+    public static String decrypt(String message, int key) {
         StringBuilder decryptedMessage = new StringBuilder();
         
         for (int i = 0; i < message.length(); i++) {
