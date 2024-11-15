@@ -2,7 +2,6 @@ package org.example.utils.menu;
 
 import org.example.menus.MainMenu;
 import org.example.utils.FileUtil;
-
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -14,6 +13,13 @@ public class MenuUtil {
         return scanner.nextLine();
     }
 
+    /**
+     * Waits for the user to press Enter before continuing
+     */
+    public static void waitForEnter() {
+        scanner.nextLine();
+    }
+
     public static Menu createSaveResultMenu(String result, Function<String, Menu> returnMenu) {
         Banner banner = Banner.create(
                 "                 Sauvegarde du Message",
@@ -23,8 +29,7 @@ public class MenuUtil {
         return new Menu()
                 .setBanner(banner)
                 .addOption("1", "Sauvegarder le message", () -> handleSaveMessage(result, returnMenu))
-                .addOption("2", "Terminer sans sauvegarder", MainMenu::getMainMenu)
-                .addOption("", "Retour", () -> returnMenu.apply(result));
+                .addOption("2", "Terminer sans sauvegarder", MainMenu::getMainMenu);
     }
 
     private static Menu handleSaveMessage(String message, Function<String, Menu> returnMenu) {

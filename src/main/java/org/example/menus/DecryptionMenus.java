@@ -15,8 +15,8 @@ public class DecryptionMenus {
 
         return new Menu()
                 .setBanner(banner)
-                .addOption("1", "Méthode -CÉSAR-", () -> null)
-                .addOption("2", "Méthode -VIGENÈRE-", () -> null)
+                .addOption("1", "Méthode -CÉSAR-", () -> CaesarMenus.getCaesarMenu(false))
+                .addOption("2", "Méthode -VIGENÈRE-", () -> VigenereMenus.getVigenereMenu(false))
                 .addOption("3", "Méthode -CARRÉ DE POLYBE-", () -> PolybiusMenus.getPolybiusMenu(false))
                 .addOption("4", "Méthode -RC4-", () -> RC4Menus.getRC4Menu(false))
                 .addOption("", "Retour", MainMenu::getMainMenu);
